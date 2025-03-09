@@ -87,6 +87,7 @@ Consolidate duplicate code and improve naming conventions in the ETL process.
 Always reference related issues using GitHub's syntax:
 
 * `Fixes #123` - Closes the issue automatically when merged
+* `Closes #123` - Closes the issue automatically when merged
 * `Resolves #123` - Closes the issue automatically when merged
 * `Relates to #123` - Creates a reference without closing the issue
 
@@ -97,3 +98,5 @@ All commits should be signed to verify authenticity. Configure Git to sign your 
 ```bash
 git config --global commit.gpgsign true
 ```
+
+Last edited: Mar 9, 2025.
