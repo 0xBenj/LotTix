@@ -49,7 +49,7 @@ Closes #42
 ## Code Review Process
 - **PRs must have at least one review** before merging.
 - Use **GitHub Draft PRs** for work-in-progress changes.
-- Check **WCAG checklist** if necessary
+- Check **[WCAG Guidelines]([https://www.w3.org/WAI/standards-guidelines/wcag/](https://docs.google.com/document/d/1hkg0UmxC2o8vMN1zUD4ooRl8hBDVzgB6rbHDw5_2Lb4/edit?tab=t.0))** if necessary
 - Provide constructive feedback during code reviews and request changes if necessary.
 
 ---
