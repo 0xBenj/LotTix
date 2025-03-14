@@ -44,7 +44,7 @@ Each PR should be checked against the following performance best practices befor
 ## Performance Review Process
 Before merging a PR, ensure the following performance checks have been completed:
 
-- ** Run Lighthouse audits** and address any major performance issues.
-- ** Review API requests** to ensure no unnecessary calls are made.
-- ** Optimize asset sizes** and remove redundant dependencies.
-- ** Ensure animations and interactions remain smooth.**
+- **Run Lighthouse audits** and address any major performance issues.
+- **Review API requests** to ensure no unnecessary calls are made.
+- **Optimize asset sizes** and remove redundant dependencies.
+- **Ensure animations and interactions remain smooth.**
