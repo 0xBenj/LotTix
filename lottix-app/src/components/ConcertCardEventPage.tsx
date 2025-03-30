@@ -36,7 +36,7 @@ const ConcertCard: React.FC<ConcertCardProps> = ({
   winnersAnnounced,
   imageUrl,
 }) => {
-  const location = state ? `${city}, ${state}` : city;
+  const location = state ? `${city}, ${state}` : `${city}, ${country}`;
   const formattedEntryPrice = typeof lotteryEntryPrice === 'number' ? `$${lotteryEntryPrice}` : lotteryEntryPrice;
   const spotsRemaining = "150 of 500"; // Example data
   const currentOdds = "1:93"; // Example data
@@ -45,47 +45,46 @@ const ConcertCard: React.FC<ConcertCardProps> = ({
     <CardContainer>
       <ImageSection imageUrl={imageUrl} />
       <ContentSection>
-        <ArtistName>{artist}</ArtistName>
-        <TourName>{name}</TourName>
-        <HotBadge>HOT!</HotBadge>
+        <HeaderSection>
+          <ArtistName>{artist}</ArtistName>
+          <TourName>{name}</TourName>
+          <HotBadge>HOT!</HotBadge>
+        </HeaderSection>
         
         <DetailRow>
-          <IconContainer>🗓️</IconContainer>
-          <div>{date} • {time}</div>
+          <CalendarIcon />
+          <DetailText>{date} • {time}</DetailText>
         </DetailRow>
         
         <DetailRow>
-          <IconContainer>📍</IconContainer>
-          <div>{venue}</div>
+          <LocationIcon />
+          <DetailText>{venue}</DetailText>
         </DetailRow>
         
         <DetailRow>
-          <IconContainer>🏙️</IconContainer>
-          <div>{location}, {country}</div>
+          <CityIcon />
+          <DetailText>{location}</DetailText>
         </DetailRow>
         
         <LotterySection>
           <LotteryTitle>Lottery Details</LotteryTitle>
-          
-          <DetailItem>
-            <DetailLabel>Entry Fee:</DetailLabel>
-            <DetailValue>{formattedEntryPrice}</DetailValue>
-          </DetailItem>
-          
-          <DetailItem>
-            <DetailLabel>Spots Remaining:</DetailLabel>
-            <DetailValue>{spotsRemaining}</DetailValue>
-          </DetailItem>
-          
-          <DetailItem>
-            <DetailLabel>Current Odds:</DetailLabel>
-            <DetailValue>{currentOdds}</DetailValue>
-          </DetailItem>
-          
-          <DetailItem>
-            <DetailLabel>Results:</DetailLabel>
-            <HighlightedValue>{winnersAnnounced}</HighlightedValue>
-          </DetailItem>
+          <LotteryDetailsCard>
+            <LotteryDetailsGrid>
+              <DetailLabel>Entry Fee:</DetailLabel>
+              <DetailValue>{formattedEntryPrice}</DetailValue>
+              
+              <DetailLabel>Spots Remaining:</DetailLabel>
+              <DetailValue>{spotsRemaining}</DetailValue>
+              
+              <DetailLabel>Current Odds:</DetailLabel>
+              <DetailValue>{currentOdds}</DetailValue>
+            </LotteryDetailsGrid>
+            
+            <ResultsRow>
+              <DetailLabel>Results:</DetailLabel>
+              <HighlightedValue>{winnersAnnounced}</HighlightedValue>
+            </ResultsRow>
+          </LotteryDetailsCard>
         </LotterySection>
       </ContentSection>
     </CardContainer>
@@ -94,18 +93,17 @@ const ConcertCard: React.FC<ConcertCardProps> = ({
 
 // Styled Components
 const CardContainer = styled.div`
-  height: 450px;
-  width: 600px;
   display: flex;
-  font-family: Arial, sans-serif;
   max-width: 600px;
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+  text-align: left;
 `;
 
 const ImageSection = styled.div<{ imageUrl: string }>`
-  width: 120%;
+  width: 40%;
   background-color: #111827;
   background-image: url(${props => props.imageUrl});
   background-size: cover;
@@ -114,23 +112,26 @@ const ImageSection = styled.div<{ imageUrl: string }>`
 
 const ContentSection = styled.div`
   width: 60%;
-  padding: 10px;
+  padding: 20px;
   background-color: white;
-  font-size: 0.9em;
-  color: rgb(134, 134, 134);
-  margin: 5px 0;
+  display: flex;
+  flex-direction: column;
+`;
+
+const HeaderSection = styled.div`
+  margin-bottom: 16px;
 `;
 
 const ArtistName = styled.h1`
-  margin: 0 0 4px 0;
-  font-size: 24px;
+  margin: 0;
+  font-size: 20px;
   font-weight: bold;
   color: #111827;
 `;
 
 const TourName = styled.p`
-  margin: 0 0 16px 0;
-  font-size: 16px;
+  margin: 0 0 8px 0;
+  font-size: 14px;
   color: #4B5563;
 `;
 
@@ -138,41 +139,70 @@ const HotBadge = styled.div`
   display: inline-block;
   background-color: #EC4899;
   color: white;
-  padding: 4px 12px;
+  padding: 2px 10px;
   border-radius: 16px;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: bold;
-  margin-bottom: 16px;
+  margin-top: 4px;
 `;
 
 const DetailRow = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 8px;
+  font-size: 14px;
+  color: #6B7280;
 `;
 
-const IconContainer = styled.div`
-  width: 20px;
-  margin-right: 8px;
-  color: #9CA3AF;
+const DetailText = styled.div`
+  margin-left: 8px;
+`;
+
+const CalendarIcon = styled.div`
+  &:before {
+    content: "🗓️";
+    font-size: 14px;
+    color: #9CA3AF;
+  }
+`;
+
+const LocationIcon = styled.div`
+  &:before {
+    content: "📍";
+    font-size: 14px;
+    color: #9CA3AF;
+  }
+`;
+
+const CityIcon = styled.div`
+  &:before {
+    content: "🏙️";
+    font-size: 14px;
+    color: #9CA3AF;
+  }
 `;
 
 const LotterySection = styled.div`
   background-color: #F9FAFB;
   border-radius: 8px;
-  padding: 16px;
+  padding: 12px;
+  margin-top: 8px;
 `;
 
 const LotteryTitle = styled.h3`
-  margin: 0 0 16px 0;
-  font-size: 18px;
+  margin: 0 0 10px 0;
+  font-size: 16px;
   font-weight: bold;
+  color: #4B5563;
 `;
 
-const DetailItem = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 8px;
+const LotteryDetailsGrid = styled.div`
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-gap: 4px 16px;
+  margin-bottom: 12px;
+  font-size: 13px;
+  margin: 3px
 `;
 
 const DetailLabel = styled.div`
@@ -181,27 +211,26 @@ const DetailLabel = styled.div`
 
 const DetailValue = styled.div`
   font-weight: bold;
+  color: #111827;
+  text-align: left;
 `;
 
-const HighlightedValue = styled(DetailValue)`
+const ResultsRow = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 8px;
+  border-left: 3px solid #9CA3AF;
+  font-size: 13px;
+`;
+
+const HighlightedValue = styled.div`
+  font-weight: bold;
   color: #EC4899;
 `;
 
-const EnterButton = styled.button`
-  background-color: #EC4899;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  padding: 8px 16px;
-  font-weight: bold;
-  margin-top: 16px;
-  cursor: pointer;
-  width: 100%;
-  transition: background-color 0.2s;
-  
-  &:hover {
-    background-color: #DB2777;
-  }
-`;
+const LotteryDetailsCard = styled.div`
+  display: flex;
+`
 
 export default ConcertCard;
