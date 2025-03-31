@@ -1,26 +1,37 @@
 import React from "react";
 import styled from "styled-components";
 
+// Example usage
+/*        
+<ConcertCardEventPage
+  id={1}
+  name="World's Hottest Tour"
+  artist="Bad Bunny"
+  date="2025-07-15"
+  time="8:00 PM"
+  venue="Madison Square Garden"
+  city="New York"
+  state="NY"
+  country="USA"
+  lotteryEntryPrice={3}
+  winnersAnnounced="2025-07-01"
+  imageUrl="https://dummyimage.com/400x400/000000/FFFFFF&text=demo"
+/> 
+*/
+
 type ConcertCardProps = {
   id: number;
   name: string;
   artist: string;
   date: string;
   time: string;
-  genre?: string;
   venue: string;
   city: string;
   state?: string;
   country: string;
-  capacity?: number;
-  ticketPrice: number;
   lotteryEntryPrice: number | "Free";
-  maxEntriesPerUser?: number;
-  lotteryDeadline: string;
-  winnersAnnounced?: string;
+  winnersAnnounced: string;
   imageUrl: string;
-  description?: string;
-  onEnterClick: () => void;
 };
 
 const ConcertCard: React.FC<ConcertCardProps> = ({
@@ -71,7 +82,7 @@ const ConcertCard: React.FC<ConcertCardProps> = ({
           <LotteryDetailsCard>
             <LotteryDetailsGrid>
               <DetailLabel>Entry Fee:</DetailLabel>
-              <DetailValue>{formattedEntryPrice}</DetailValue>
+              <PriceValue>{formattedEntryPrice}</PriceValue>
               
               <DetailLabel>Spots Remaining:</DetailLabel>
               <DetailValue>{spotsRemaining}</DetailValue>
@@ -92,9 +103,10 @@ const ConcertCard: React.FC<ConcertCardProps> = ({
 };
 
 // Styled Components
+const SECTION_SIZE = "370px";
+
 const CardContainer = styled.div`
   display: flex;
-  max-width: 600px;
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -103,7 +115,9 @@ const CardContainer = styled.div`
 `;
 
 const ImageSection = styled.div<{ imageUrl: string }>`
-  width: 40%;
+  width: ${SECTION_SIZE};
+  height: ${SECTION_SIZE};
+  flex-shrink: 0; // Prevents shrinking
   background-color: #111827;
   background-image: url(${props => props.imageUrl});
   background-size: cover;
@@ -111,11 +125,15 @@ const ImageSection = styled.div<{ imageUrl: string }>`
 `;
 
 const ContentSection = styled.div`
-  width: 60%;
+  width: ${SECTION_SIZE};
+  height: ${SECTION_SIZE};
   padding: 20px;
   background-color: white;
   display: flex;
   flex-direction: column;
+  box-sizing: border-box;
+  overflow-y: auto;
+  color: #12172D;
 `;
 
 const HeaderSection = styled.div`
@@ -126,18 +144,16 @@ const ArtistName = styled.h1`
   margin: 0;
   font-size: 20px;
   font-weight: bold;
-  color: #111827;
 `;
 
 const TourName = styled.p`
   margin: 0 0 8px 0;
   font-size: 14px;
-  color: #4B5563;
 `;
 
 const HotBadge = styled.div`
   display: inline-block;
-  background-color: #EC4899;
+  background-color: #E10098;
   color: white;
   padding: 2px 10px;
   border-radius: 16px;
@@ -151,34 +167,36 @@ const DetailRow = styled.div`
   align-items: center;
   margin-bottom: 8px;
   font-size: 14px;
-  color: #6B7280;
 `;
 
 const DetailText = styled.div`
   margin-left: 8px;
 `;
 
-const CalendarIcon = styled.div`
+const StyledIcon = styled.div`
+  &:before {
+    font-size: 12px;
+    background: #F2E6FF;
+    border-radius: 50% / 50%;
+    padding: 2px
+  }
+`
+
+const CalendarIcon = styled(StyledIcon)`
   &:before {
     content: "🗓️";
-    font-size: 14px;
-    color: #9CA3AF;
   }
 `;
 
-const LocationIcon = styled.div`
+const LocationIcon = styled(StyledIcon)`
   &:before {
     content: "📍";
-    font-size: 14px;
-    color: #9CA3AF;
   }
 `;
 
-const CityIcon = styled.div`
+const CityIcon = styled(StyledIcon)`
   &:before {
     content: "🏙️";
-    font-size: 14px;
-    color: #9CA3AF;
   }
 `;
 
@@ -193,7 +211,6 @@ const LotteryTitle = styled.h3`
   margin: 0 0 10px 0;
   font-size: 16px;
   font-weight: bold;
-  color: #4B5563;
 `;
 
 const LotteryDetailsGrid = styled.div`
@@ -205,28 +222,28 @@ const LotteryDetailsGrid = styled.div`
   margin: 3px
 `;
 
-const DetailLabel = styled.div`
-  color: #4B5563;
-`;
+const DetailLabel = styled.div``;
+
+const PriceValue = styled.div`
+  font-weight: bold;
+  color: #6610F2;
+`
 
 const DetailValue = styled.div`
   font-weight: bold;
-  color: #111827;
-  text-align: left;
 `;
 
 const ResultsRow = styled.div`
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
   padding-left: 8px;
-  border-left: 3px solid #9CA3AF;
+  border-left: 3px solid #ECEEEF;
   font-size: 13px;
 `;
 
 const HighlightedValue = styled.div`
   font-weight: bold;
-  color: #EC4899;
+  color: #E10098;
 `;
 
 const LotteryDetailsCard = styled.div`
