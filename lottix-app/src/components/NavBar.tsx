@@ -15,58 +15,62 @@ const NavBar: React.FC<NavBarProps> = ({
 }) => {
   return (
     <>
-      <nav className="navbar">
-        {/* Left: Logo with link to home */}
-        <div className="navbar-left">
-          <Link to="/">LotTix</Link>
-        </div>
+      <div className="navbar-container">
 
-        {/* Right: nav links */}
-        <div className="navbar-right">
-          {showSearch && (
-            <Link to="/search-for-events" className="search-link">
-              🔍 <span>Search</span>
-            </Link>
-          )}
+        <nav className="navbar">
+          {/* Left: Logo with link to home */}
+          <div className="navbar-left">
+            <Link to="/">LotTix</Link>
+          </div>
 
-          {showHowItWorks && (
-            <Link to="/how-it-works">How It Works</Link>
-          )}
+          {/* Right: nav links */}
+          <div className="navbar-right">
+            {showSearch && (
+              <Link to="/search-for-events" className="search-link">
+                🔍 <span>Search</span>
+              </Link>
+            )}
 
-          {isSignedIn ? (
-            <Link to="/user-dashboard" className="user-info">
-              <span>{username}</span>
-              <div className="avatar">
-                {username?.charAt(0).toUpperCase() || "U"}
-              </div>
-            </Link>
-          ) : (
-            <Link to="/sign-in" className="sign-in">
-              Sign In
-            </Link>
-          )}
-        </div>
-      </nav>
+            {showHowItWorks && (
+              <Link to="/how-it-works">How It Works</Link>
+            )}
 
+            {isSignedIn ? (
+              <Link to="/user-dashboard" className="user-info">
+                <span>{username}</span>
+                <div className="avatar">
+                  {username?.charAt(0).toUpperCase() || "U"}
+                </div>
+              </Link>
+            ) : (
+              <Link to="/sign-in" className="sign-in">
+                Sign In
+              </Link>
+            )}
+          </div>
+        </nav>
+      </div>
       <style>{`
-        .navbar {
-          background-color: black;
-          color: white;
-          padding: 12px 32px;
+        .navbar-container {
           position: fixed;
           top: 0;
           left: 0;
           width: 100%;
+          background-color: black;
           z-index: 1000;
+          display: flex;
+          justify-content: center;
+        }
 
+        .navbar {
+          color: white;
+          padding: 12px 32px;
+          width: 100%;
+          max-width: 1400px;
+          
           display: flex;
           justify-content: space-between;
           align-items: center;
-
-          max-width: 1400px;
-            margin: 0 auto;
-            right: 0;
-            left: 0;
         }
 
         .navbar-left a {
