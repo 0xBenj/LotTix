@@ -1,7 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { concertEvents, ConcertEvent } from '../data/concertData';
 import ConcertCard from '../components/ConcertCard';
+
+// Define the event interface that matches ConcertCard props
+interface MockEvent {
+  id: number;
+  name: string;
+  artist: string;
+  date: string; // ISO date string
+  time: string;
+  genre?: string;
+  venue: string;
+  city: string;
+  state?: string;
+  country: string;
+  capacity?: number;
+  ticketPrice: number;
+  lotteryEntryPrice: number | 'Free';
+  maxEntriesPerUser?: number;
+  lotteryDeadline: string; // ISO date string
+  winnersAnnounced?: string; // ISO date string
+  imageUrl: string;
+  description?: string;
+}
 
 const SearchForEventsPage: React.FC = () => {
   const navigate = useNavigate();
@@ -9,28 +30,151 @@ const SearchForEventsPage: React.FC = () => {
   const [date, setDate] = useState('');
   const [artist, setArtist] = useState('');
   const [sortBy, setSortBy] = useState('Date: Soonest');
-  const [filteredEvents, setFilteredEvents] = useState<ConcertEvent[]>([]);
+  const [filteredEvents, setFilteredEvents] = useState<MockEvent[]>([]);
+  
+  // Mock Events data directly in the component
+  const mockEvents: MockEvent[] = [
+    {
+      id: 1,
+      name: "The Big Steppers Tour",
+      artist: "Kendrick Lamar",
+      date: "2025-07-29T19:00:00Z",
+      time: "7:00 PM",
+      genre: "Hip-Hop/Rap",
+      venue: "United Center",
+      city: "Chicago",
+      state: "IL",
+      country: "USA",
+      capacity: 23500,
+      ticketPrice: 89.99,
+      lotteryEntryPrice: 3,
+      maxEntriesPerUser: 2,
+      lotteryDeadline: "2025-07-15T23:59:59Z",
+      winnersAnnounced: "2025-07-20T12:00:00Z",
+      imageUrl: "https://dummyimage.com/400x200/000/fff&text=Kendrick+Lamar",
+      description: "Kendrick Lamar's highly anticipated tour featuring tracks from his latest album."
+    },
+    {
+      id: 2,
+      name: "Future Nostalgia Tour",
+      artist: "Dua Lipa",
+      date: "2025-08-02T20:00:00Z",
+      time: "8:00 PM",
+      genre: "Pop",
+      venue: "FTX Arena",
+      city: "Miami",
+      state: "FL",
+      country: "USA",
+      capacity: 19600,
+      ticketPrice: 75.50,
+      lotteryEntryPrice: 3,
+      lotteryDeadline: "2025-07-25T23:59:59Z",
+      winnersAnnounced: "2025-07-28T12:00:00Z",
+      imageUrl: "https://dummyimage.com/400x200/000/fff&text=Dua+Lipa",
+      description: "An electrifying performance featuring hits from the Future Nostalgia album."
+    },
+    {
+      id: 3,
+      name: "After Hours Tour",
+      artist: "The Weeknd",
+      date: "2025-08-05T19:30:00Z",
+      time: "7:30 PM",
+      genre: "R&B/Soul",
+      venue: "SoFi Stadium",
+      city: "Los Angeles",
+      state: "CA",
+      country: "USA",
+      capacity: 70240,
+      ticketPrice: 95.00,
+      lotteryEntryPrice: 'Free',
+      maxEntriesPerUser: 1,
+      lotteryDeadline: "2025-07-22T23:59:59Z",
+      imageUrl: "https://dummyimage.com/400x200/000/fff&text=The+Weeknd",
+      description: "Experience The Weeknd's chart-topping hits live in concert."
+    },
+    {
+      id: 4,
+      name: "World Tour",
+      artist: "BTS",
+      date: "2025-08-15T18:00:00Z",
+      time: "6:00 PM",
+      genre: "K-Pop",
+      venue: "MetLife Stadium",
+      city: "New York",
+      state: "NY",
+      country: "USA",
+      capacity: 82500,
+      ticketPrice: 120.00,
+      lotteryEntryPrice: 3,
+      maxEntriesPerUser: 3,
+      lotteryDeadline: "2025-08-01T23:59:59Z",
+      winnersAnnounced: "2025-08-05T12:00:00Z",
+      imageUrl: "https://dummyimage.com/400x200/000/fff&text=BTS",
+      description: "The global phenomenon BTS returns to the US for their biggest tour yet."
+    },
+    {
+      id: 5,
+      name: "GUTS World Tour",
+      artist: "Olivia Rodrigo",
+      date: "2025-08-18T19:00:00Z",
+      time: "7:00 PM",
+      genre: "Pop/Rock",
+      venue: "TD Garden",
+      city: "Boston",
+      state: "MA",
+      country: "USA",
+      capacity: 19580,
+      ticketPrice: 65.00,
+      lotteryEntryPrice: 3,
+      lotteryDeadline: "2025-08-04T23:59:59Z",
+      winnersAnnounced: "2025-08-08T12:00:00Z",
+      imageUrl: "https://dummyimage.com/400x200/000/fff&text=Olivia+Rodrigo",
+      description: "Olivia Rodrigo brings her chart-topping album GUTS to life on stage."
+    },
+    {
+      id: 6,
+      name: "Chromatica Ball",
+      artist: "Lady Gaga",
+      date: "2025-08-24T20:30:00Z",
+      time: "8:30 PM",
+      genre: "Pop",
+      venue: "Chase Center",
+      city: "San Francisco",
+      state: "CA",
+      country: "USA",
+      capacity: 18064,
+      ticketPrice: 85.50,
+      lotteryEntryPrice: 3,
+      maxEntriesPerUser: 2,
+      lotteryDeadline: "2025-08-10T23:59:59Z",
+      winnersAnnounced: "2025-08-15T12:00:00Z",
+      imageUrl: "https://dummyimage.com/400x200/000/fff&text=Lady+Gaga",
+      description: "A visually stunning performance celebrating Lady Gaga's Chromatica album."
+    }
+  ];
   
   useEffect(() => {
-    setFilteredEvents(concertEvents);
+    setFilteredEvents(mockEvents);
   }, []);
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     
     // Filter events based on search criteria
-    const filtered = concertEvents.filter(event => {
+    const filtered = mockEvents.filter(event => {
       const matchLocation = location === '' || 
-        event.location.toLowerCase().includes(location.toLowerCase());
+        event.city.toLowerCase().includes(location.toLowerCase()) ||
+        event.state?.toLowerCase().includes(location.toLowerCase()) ||
+        event.country.toLowerCase().includes(location.toLowerCase());
       
       // For date, we'll need to compare with formatted date from the picker
       const matchDate = date === '' || 
-        (date && event.date.toLowerCase().includes(formatDate(date)));
+        (date && new Date(event.date).toDateString().includes(formatDate(date)));
       
       const matchArtist = artist === '' || 
         event.artist.toLowerCase().includes(artist.toLowerCase()) || 
         event.venue.toLowerCase().includes(artist.toLowerCase()) ||
-        event.tourName.toLowerCase().includes(artist.toLowerCase());
+        event.name.toLowerCase().includes(artist.toLowerCase());
       
       return matchLocation && matchDate && matchArtist;
     });
@@ -55,28 +199,26 @@ const SearchForEventsPage: React.FC = () => {
     
     switch(value) {
       case 'Date: Soonest':
-        sortedEvents.sort((a, b) => a.date.localeCompare(b.date));
+        sortedEvents.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
         break;
       case 'Price: Low to High':
-        sortedEvents.sort((a, b) => a.entryPrice - b.entryPrice);
+        sortedEvents.sort((a, b) => {
+          const priceA = typeof a.lotteryEntryPrice === 'string' ? 0 : a.lotteryEntryPrice;
+          const priceB = typeof b.lotteryEntryPrice === 'string' ? 0 : b.lotteryEntryPrice;
+          return priceA - priceB;
+        });
         break;
       case 'Odds: Best':
-        sortedEvents.sort((a, b) => {
-          const oddsA = parseInt(a.odds.split(':')[1]);
-          const oddsB = parseInt(b.odds.split(':')[1]);
-          return oddsA - oddsB;
-        });
+        // This would require odds data, for now just sort by capacity (smaller = better odds)
+        sortedEvents.sort((a, b) => (a.capacity || 0) - (b.capacity || 0));
         break;
     }
     
     setFilteredEvents(sortedEvents);
   };
 
-  const handleEnterClick = (_eventId: number): void => {
-    // Uncomment when event details page is ready
-    // navigate(`/event-details/${eventId}`);
-    navigate(`/event-details/`);
-
+  const handleEnterClick = (eventId: number): void => {
+    navigate(`/event-details/${eventId}`);
   };
 
   return (
@@ -88,7 +230,7 @@ const SearchForEventsPage: React.FC = () => {
         <form onSubmit={handleSearch}>
           <div style={styles.searchFormRow}>
             <div style={styles.searchFormField}>
-              <label style={styles.label}>City/Zip Code</label>
+              <label style={styles.label}>City/State/Country</label>
               <input 
                 type="text" 
                 placeholder="Enter location..." 
@@ -151,17 +293,23 @@ const SearchForEventsPage: React.FC = () => {
           <div key={event.id} style={styles.cardWrapper}>
             <ConcertCard
               id={event.id}
-              name={event.tourName}
+              name={event.name}
               artist={event.artist}
-              date={new Date().toISOString()} // Convert event.date to ISO string in a real app
-              time={event.date.split(',')[0]} // Using part of the date as time for demo
+              date={event.date}
+              time={event.time}
+              genre={event.genre}
               venue={event.venue}
-              city={event.location}
-              country="USA" // Default value as it's required
-              ticketPrice={event.entryPrice * 30} // Estimated full price
-              lotteryEntryPrice={event.isFree ? 'Free' : event.entryPrice}
-              imageUrl={event.image}
-              lotteryDeadline={new Date().toISOString()} // Placeholder
+              city={event.city}
+              state={event.state}
+              country={event.country}
+              capacity={event.capacity}
+              ticketPrice={event.ticketPrice}
+              lotteryEntryPrice={event.lotteryEntryPrice}
+              maxEntriesPerUser={event.maxEntriesPerUser}
+              lotteryDeadline={event.lotteryDeadline}
+              winnersAnnounced={event.winnersAnnounced}
+              imageUrl={event.imageUrl}
+              description={event.description}
               onEnterClick={() => handleEnterClick(event.id)}
             />
           </div>
