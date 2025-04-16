@@ -14,7 +14,7 @@ import styled from "styled-components";
   state="NY"
   country="USA"
   lotteryEntryPrice={3}
-  winnersAnnounced="2025-07-01"
+  lottery_deadline="2025-07-01"
   imageUrl="https://dummyimage.com/400x400/000000/FFFFFF&text=demo"
 /> 
 */
@@ -30,7 +30,7 @@ type ConcertCardProps = {
   state?: string;
   country: string;
   lotteryEntryPrice: number | "Free";
-  winnersAnnounced: string;
+  lottery_deadline: string;
   imageUrl: string;
 };
 
@@ -44,7 +44,7 @@ const ConcertCard: React.FC<ConcertCardProps> = ({
   state,
   country,
   lotteryEntryPrice,
-  winnersAnnounced,
+  lottery_deadline,
   imageUrl,
 }) => {
   const location = state ? `${city}, ${state}` : `${city}, ${country}`;
@@ -93,7 +93,7 @@ const ConcertCard: React.FC<ConcertCardProps> = ({
             
             <ResultsRow>
               <DetailLabel>Results:</DetailLabel>
-              <HighlightedValue>{winnersAnnounced}</HighlightedValue>
+              <HighlightedValue>{lottery_deadline}</HighlightedValue>
             </ResultsRow>
           </LotteryDetailsCard>
         </LotterySection>
