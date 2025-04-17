@@ -2,59 +2,58 @@ import React from 'react';
 import styled from 'styled-components';
 
 type ConcertCardProps = {
-  id: number;
-  name: string;
-  artist: string;
-  date: string; // ISO date string
-  time: string;
-  genre?: string;
-  venue: string;
+  concertID: number;
+  concertName: string;
+  artistName: string;
+  tourName?: string;
+  concertDate: string; // ISO date string
+  concertTime: string;
+  venueName: string;
   city: string;
   state?: string;
   country: string;
-  capacity?: number;
   ticketPrice: number;
-  lotteryEntryPrice: number | 'Free';
-  maxEntriesPerUser?: number;
+  entryPrice: number | 'Free';
+  maxEntries?: number;
   lotteryDeadline: string; // ISO date string
-  winnersAnnounced?: string; // ISO date string
-  imageUrl: string;
-  description?: string;
+  lotteryWinner?: string | "none";
+  concertImageUrl: string;
+  concertDescription?: string;
   onEnterClick: () => void;
 };
 
 const ConcertCard: React.FC<ConcertCardProps> = ({
-  name,
-  artist,
-  date,
-  time,
-  venue,
+  concertName,
+  artistName,
+  concertDate,
+  concertTime,
+  venueName,
   city,
   state,
   country,
   ticketPrice,
-  lotteryEntryPrice,
-  imageUrl,
+  entryPrice,
+  concertImageUrl,
   onEnterClick,
 }) => {
   return (
     <StyledWrapper>
       <div className="card">
-        <img src={imageUrl} alt={`${name} poster`} className="card-image" />
+        <img src={concertImageUrl} alt={`${concertName} poster`} className="card-image" />
         <div className="card-details">
-          <p className="text-title">{name}</p>
+          <p className="text-title">{concertName}</p>
           <p className="text-body">
-            {artist} • {venue}, {city}{state ? `, ${state}` : ''}, {country}
+            {artistName} • {venueName}, {city}{state ? `, ${state}` : ''}, {country}
           </p>
           <p className="text-body">
-            {new Date(date).toLocaleDateString()} at {time}
+            {new Date(concertDate).toLocaleDateString()} at {concertTime}
           </p>
           <p className="text-body">
-            Ticket: ${ticketPrice} | Lottery: {lotteryEntryPrice === 'Free' ? 'Free' : `$${lotteryEntryPrice}`}
+            Ticket: ${ticketPrice} | Lottery: {entryPrice === 'Free' ? 'Free' : `$${entryPrice}`}
           </p>
         </div>
         <button className="card-button" onClick={onEnterClick}>
-          {lotteryEntryPrice === 'Free' ? 'Enter for Free' : `Enter for $${lotteryEntryPrice}`}
+          {entryPrice === 'Free' ? 'Enter for Free' : `Enter for $${entryPrice}`}
         </button>
       </div>
     </StyledWrapper>
