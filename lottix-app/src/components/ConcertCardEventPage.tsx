@@ -1,75 +1,40 @@
 import React from "react";
 import styled from "styled-components";
+import type { ConcertEvent } from '../data/concertData.ts'
 
 // Example usage
 /*        
-<ConcertCardEventPage
-  id={1}
-  name="World's Hottest Tour"
-  artist="Bad Bunny"
-  date="2025-07-15"
-  time="8:00 PM"
-  venue="Madison Square Garden"
-  city="New York"
-  state="NY"
-  country="USA"
-  lotteryEntryPrice={3}
-  winnersAnnounced="2025-07-01"
-  imageUrl="https://dummyimage.com/400x400/000000/FFFFFF&text=demo"
-/> 
+<ConcertCardEventPage c={concertEvents[0]} />
 */
+interface ConcertCardEventPageProps { c: ConcertEvent; }
 
-type ConcertCardProps = {
-  id: number;
-  name: string;
-  artist: string;
-  date: string;
-  time: string;
-  venue: string;
-  city: string;
-  state?: string;
-  country: string;
-  lotteryEntryPrice: number | "Free";
-  winnersAnnounced: string;
-  imageUrl: string;
-};
+const ConcertCardEventPage: React.FC<ConcertCardEventPageProps> = ({ c }) => {
+  const location = c.state ? `${c.city}, ${c.state}` : `${c.city}, ${c.country}`;
+  const formattedEntryPrice = typeof c.entryPrice === 'number' ? `$${c.entryPrice}` : c.entryPrice;
+  const spotsRemaining = c.maxEntries - c.entriesSold + " of " + c.maxEntries;
+  const currentOdds = "1:"+c.entriesSold;
+  const concertDateObj = new Date(c.concertDate);
+  const deadlineObj = new Date(c.lotteryDeadline);
 
-const ConcertCard: React.FC<ConcertCardProps> = ({
-  name,
-  artist,
-  date,
-  time,
-  venue,
-  city,
-  state,
-  country,
-  lotteryEntryPrice,
-  winnersAnnounced,
-  imageUrl,
-}) => {
-  const location = state ? `${city}, ${state}` : `${city}, ${country}`;
-  const formattedEntryPrice = typeof lotteryEntryPrice === 'number' ? `$${lotteryEntryPrice}` : lotteryEntryPrice;
-  const spotsRemaining = "150 of 500"; // Example data
-  const currentOdds = "1:93"; // Example data
 
   return (
     <CardContainer>
-      <ImageSection imageUrl={imageUrl} />
+      <ImageSection imageUrl={c.concertImageUrl} />
       <ContentSection>
         <HeaderSection>
-          <ArtistName>{artist}</ArtistName>
-          <TourName>{name}</TourName>
+          <ArtistName>{c.artistName}</ArtistName>
+          <TourName>{c.concertName}</TourName>
           <HotBadge>HOT!</HotBadge>
         </HeaderSection>
         
         <DetailRow>
           <CalendarIcon />
-          <DetailText>{date} • {time}</DetailText>
+          <DetailText>{concertDateObj.toLocaleDateString()} • {c.concertTime}</DetailText>
         </DetailRow>
         
         <DetailRow>
           <LocationIcon />
-          <DetailText>{venue}</DetailText>
+          <DetailText>{c.venueName}</DetailText>
         </DetailRow>
         
         <DetailRow>
@@ -93,7 +58,7 @@ const ConcertCard: React.FC<ConcertCardProps> = ({
             
             <ResultsRow>
               <DetailLabel>Results:</DetailLabel>
-              <HighlightedValue>{winnersAnnounced}</HighlightedValue>
+              <HighlightedValue>{deadlineObj.toLocaleDateString()}</HighlightedValue>
             </ResultsRow>
           </LotteryDetailsCard>
         </LotterySection>
@@ -250,4 +215,4 @@ const LotteryDetailsCard = styled.div`
   display: flex;
 `
 
-export default ConcertCard;
+export default ConcertCardEventPage;
