@@ -2,10 +2,9 @@ import React from "react";
 import styled from "styled-components";
 import type { ConcertEvent } from '../data/concertData.ts'
 
-// Example usage
-/*        
-<DetailedConcertCard c={concertEvents[0]} />
-*/
+// Example usage       
+// <DetailedConcertCard c={concertEvents[0]} />
+
 interface DetailedConcertCardProps { c: ConcertEvent; }
 
 const DetailedConcertCard: React.FC<DetailedConcertCardProps> = ({ c }) => {

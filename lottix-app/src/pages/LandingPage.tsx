@@ -1,6 +1,8 @@
 import React from 'react';
 import ConcertCard from '../components/ConcertCard';
 import { BackButton, EnterButton, ShareButton, EventDescription, LotterySteps } from '../components/ButtonsAndDescriptions';
+import DetailedConcertCard from '../components/DetailedConcertCard'; 
+import { concertEvents } from '../data/concertData';
 
 const LandingPage: React.FC = () => {
   const handleEnter = () => alert('Entered raffle!');
@@ -11,6 +13,8 @@ const LandingPage: React.FC = () => {
     <div style={{ padding: '20px' }}>
       {/* Card grid */}
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
+        
+        <DetailedConcertCard c={concertEvents[0]} />
         <ConcertCard
           id={1}
           name="Summer Jam 2025"
