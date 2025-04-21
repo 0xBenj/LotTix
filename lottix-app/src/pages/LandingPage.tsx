@@ -9,7 +9,7 @@ const LandingPage: React.FC = () => {
   const handleBack = () => alert('Going back!');
 
   return (
-    <div style={{ background: 'red', width: '100vw'}}>
+    <div>
       <HeroBanner />
       <div style={{ padding: '20px' }}>
         {/* Card grid */}
