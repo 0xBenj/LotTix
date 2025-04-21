@@ -58,6 +58,7 @@ Closes #42
 ## Code Review Process
 
 - **PRs must have at least one review** before merging.
+- Review each line of code
 - Use **GitHub Draft PRs** for work-in-progress changes.
 - Check [**WCAG Guidelines**](https://www.w3.org/WAI/standards-guidelines/wcag/) to ensure accessibility compliance.
 - must ensure that component log matches component
