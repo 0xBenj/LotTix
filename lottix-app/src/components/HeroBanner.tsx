@@ -17,7 +17,7 @@ const HeroBanner: React.FC<HeroBannerProps> = () => {
 export default HeroBanner;
 
 const HeroBannerContainer = styled.div`
-  background-color: #1e2b7d;
+  background-color: #1A237E;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -45,7 +45,7 @@ const Description = styled.p`
 `;
 
 const SearchButton = styled.button`
-  background-color: #DA1692;
+  background-color: #E10098;
   color: white;
   padding: 0.75rem 2rem;
   border-radius: 0.375rem;
