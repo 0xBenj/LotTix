@@ -10,7 +10,7 @@ const LandingPage: React.FC = () => {
 
   return (
     <div>
-      <HeroBanner />
+      <HeroBanner onClick={()=> alert("clicked")}/>
       <div style={{ padding: '20px' }}>
         {/* Card grid */}
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>

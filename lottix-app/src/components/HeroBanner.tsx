@@ -1,15 +1,17 @@
 import React from "react";
 import styled from 'styled-components';
 
-interface HeroBannerProps {}
+interface HeroBannerProps {
+  onClick: ()=>void;
+}
 
-const HeroBanner: React.FC<HeroBannerProps> = () => {
+const HeroBanner: React.FC<HeroBannerProps> = ({ onClick }) => {
   return (
     <HeroBannerContainer>
       <Heading>Win Concert Tickets</Heading>
       <Heading>For Just $3</Heading>
       <Description>Enter our lottery for a chance to see your favorite artists live!</Description>
-      <SearchButton>Search Events</SearchButton>
+      <SearchButton onClick={onClick}>Search Events</SearchButton>
     </HeroBannerContainer>
   );
 };
@@ -22,20 +24,20 @@ const HeroBannerContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 3rem;
+  padding: 5rem;
   text-align: center;
   color: white;
 `;
 
 const Heading = styled.h2`
-  font-size: 2.5rem;
+  font-size: 4.5rem;
   font-weight: bold;
-  margin-bottom: 0.5rem;
+  margin: 0 0;
 `;
 
 const Description = styled.p`
   margin-bottom: 2rem;
-  font-size: 1rem;
+  font-size: 2rem;
 `;
 
 const SearchButton = styled.button`
@@ -44,6 +46,7 @@ const SearchButton = styled.button`
   padding: 0.75rem 2rem;
   border-radius: 0.375rem;
   font-weight: 500;
+  font-size: 1.5rem;
   border: none;
   cursor: pointer;
   transition: background-color 0.2s;
