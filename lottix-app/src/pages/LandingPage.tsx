@@ -2,6 +2,8 @@ import React from 'react';
 import ConcertCard from '../components/ConcertCard';
 import { BackButton, EnterButton, ShareButton, EventDescription, LotterySteps } from '../components/ButtonsAndDescriptions';
 import ActiveLotteryEntries, { LotteryEntryProps } from '../components/ActiveLotteryEntries';
+import DetailedConcertCard from '../components/DetailedConcertCard'; 
+import { concertEvents } from '../data/concertData';
 
 const LandingPage: React.FC = () => {
   const handleEnter = () => alert('Entered raffle!');
@@ -26,38 +28,52 @@ const LandingPage: React.FC = () => {
     <div style={{ padding: '20px' }}>
       {/* Card grid */}
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
+        
+        <DetailedConcertCard c={concertEvents[0]} />
         <ConcertCard
-          id={1}
-          name="Summer Jam 2025"
-          artist="The Weeknd"
-          date="2025-07-15"
-          time="8:00 PM"
-          venue="Madison Square Garden"
-          city="New York"
-          state="NY"
-          country="USA"
-          ticketPrice={120}
-          lotteryEntryPrice={10}
-          lotteryDeadline="2025-06-30"
-          winnersAnnounced="2025-07-01"
-          imageUrl="https://muzikercdn.com/uploads/products/4372/437220/main_a680a23e.jpg"
+          concert={{
+          concertID:1,
+          tourName:"Summer Jam 2025",
+          concertName:"The Weeknd- Hits",
+          artistName:"The Weeknd",
+          concertDate:"2025-07-15",
+          concertTime:"8:00 PM",
+          venueName:"Madison Square Garden",
+          concertDescription: "this is a concert description",
+          city:"New York",
+          state:"NY",
+          country:"USA",
+          ticketPrice:120,
+          entryPrice:10,
+          lotteryDeadline:"2025-06-30",
+          concertImageUrl:"https://muzikercdn.com/uploads/products/4372/437220/main_a680a23e.jpg",
+          maxEntries: 300,
+          entriesSold: 5,
+          lotteryWinner: "pending",
+          }}
           onEnterClick={() => alert('Lottery entered!')}
         />
         <ConcertCard
-          id={2}
-          name="Rock Fest 2025"
-          artist="Foo Fighters"
-          date="2025-08-10"
-          time="7:00 PM"
-          venue="Staples Center"
-          city="Los Angeles"
-          state="CA"
-          country="USA"
-          ticketPrice={95}
-          lotteryEntryPrice="Free"
-          lotteryDeadline="2025-07-25"
-          winnersAnnounced="2025-07-27"
-          imageUrl="https://example.com/concert2.jpg"
+          concert={{
+          concertID:2,
+          tourName:"Rock Fest 2025",
+          concertName:"Foo Fum",
+          artistName:"Foo Fighters",
+          concertDate:"2025-08-10",
+          concertTime:"7:00 PM",
+          venueName:"Staples Center",
+          concertDescription: "this is a concert description",
+          city:"Los Angeles",
+          state:"CA",
+          country:"USA",
+          ticketPrice:95,
+          entryPrice:"Free",
+          lotteryDeadline:"2025-07-25",
+          concertImageUrl:"https://cdn.prod.website-files.com/655e0fa544c67c1ee5ce01c7/655e0fa544c67c1ee5ce0f7b_how-to-start-a-band-and-get-booked-og.jpeg",
+          maxEntries: 300,
+          entriesSold:5,
+          lotteryWinner:"pending",
+          }}
           onEnterClick={() => alert('Lottery entered!')}
         />
       </div>

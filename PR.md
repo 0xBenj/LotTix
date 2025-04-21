@@ -28,7 +28,7 @@ Each PR must include a detailed description following this template:
 
 ### Summary
 
-Provide a clear and concise explanation of the changes introduced in this PR.
+Provide a clear and concise explanation of the changes introduced in this PR. Link the component log related to the component if applicable. 
 
 ### Testing Steps
 
@@ -58,8 +58,10 @@ Closes #42
 ## Code Review Process
 
 - **PRs must have at least one review** before merging.
+- Review each line of code
 - Use **GitHub Draft PRs** for work-in-progress changes.
 - Check [**WCAG Guidelines**](https://www.w3.org/WAI/standards-guidelines/wcag/) to ensure accessibility compliance.
+- must ensure that component log matches component
 - Ensure alignment with [UI/UX documentation and guidelines](https://docs.google.com/document/d/1_J5CZ9UGx26D9iKI9BAy4rDhURhgG3cJYbnShedbc1g/edit?tab=t.0).
 - Provide constructive feedback during code reviews and request changes if necessary.
 - Pull the code and test functionality locally before approving.
