@@ -1,6 +1,7 @@
 import React from 'react';
 import ConcertCard from '../components/ConcertCard';
 import { BackButton, EnterButton, ShareButton, EventDescription, LotterySteps } from '../components/ButtonsAndDescriptions';
+import HeroBanner from '../components/HeroBanner.tsx'
 import DetailedConcertCard from '../components/DetailedConcertCard'; 
 import { concertEvents } from '../data/concertData';
 
@@ -10,6 +11,8 @@ const LandingPage: React.FC = () => {
   const handleBack = () => alert('Going back!');
 
   return (
+   <div>
+    <HeroBanner onClick={()=> alert("clicked")}/>
     <div style={{ padding: '20px' }}>
       {/* Card grid */}
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
@@ -63,29 +66,29 @@ const LandingPage: React.FC = () => {
         />
       </div>
 
-      {/* Event Description */}
-      <EventDescription
-        content="Bad Bunny brings his electrifying World's Hottest Tour to Madison Square Garden! Experience the global Latin music phenomenon live as he performs his biggest hits from 'Un Verano Sin Ti' and more. Don't miss this unforgettable night of reggaeton, trap, and Latin urban music!"
-      />
+        {/* Event Description */}
+        <EventDescription
+          content="Bad Bunny brings his electrifying World's Hottest Tour to Madison Square Garden! Experience the global Latin music phenomenon live as he performs his biggest hits from 'Un Verano Sin Ti' and more. Don't miss this unforgettable night of reggaeton, trap, and Latin urban music!"
+        />
 
-      {/* Lottery Steps */}
-      <LotterySteps
-        steps={[
-          'Enter the lottery for just $3',
-          'We randomly select winners',
-          'Winners have 24 hours to claim their ticket',
-          'Enjoy the show and share the moment!'
-        ]}
-      />
+        {/* Lottery Steps */}
+        <LotterySteps
+          steps={[
+            'Enter the lottery for just $3',
+            'We randomly select winners',
+            'Winners have 24 hours to claim their ticket',
+            'Enjoy the show and share the moment!'
+          ]}
+        />
 
-      {/* Buttons */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', gap: '16px', marginTop: '32px' }}>
-        <BackButton onClick={handleBack} />
-        <EnterButton onClick={handleEnter} entryPrice={3} />
-        <ShareButton onClick={handleShare} />
+        {/* Buttons */}
+        <div style={{ display: 'flex', justifyContent: 'space-between', gap: '16px', marginTop: '32px' }}>
+          <BackButton onClick={handleBack} />
+          <EnterButton onClick={handleEnter} entryPrice={3} />
+          <ShareButton onClick={handleShare} />
+        </div>
       </div>
     </div>
- 
   );
   };
   
