@@ -92,6 +92,7 @@ const LandingPage: React.FC = () => {
       {/* Active Lottery Entries */}
       <ActiveLotteryEntries user={currentUser} concertEvents={concertEvents} />
     </div>
+    </div>
   );
 };
   export default LandingPage;
