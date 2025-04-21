@@ -14,7 +14,6 @@ const LandingPage: React.FC = () => {
       <div style={{ padding: '20px' }}>
         {/* Card grid */}
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
           <ConcertCard
             concert={{
             concertID:1,
