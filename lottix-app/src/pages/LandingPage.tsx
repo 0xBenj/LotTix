@@ -88,7 +88,6 @@ const LandingPage: React.FC = () => {
           <ShareButton onClick={handleShare} />
         </div>
       </div>
-      </div>
     </div>
   );
   };
