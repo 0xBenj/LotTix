@@ -28,7 +28,7 @@ Each PR must include a detailed description following this template:
 
 ### Summary
 
-Provide a clear and concise explanation of the changes introduced in this PR.
+Provide a clear and concise explanation of the changes introduced in this PR. Link the component log related to the component if applicable. 
 
 ### Testing Steps
 
