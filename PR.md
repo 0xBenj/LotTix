@@ -60,6 +60,7 @@ Closes #42
 - **PRs must have at least one review** before merging.
 - Use **GitHub Draft PRs** for work-in-progress changes.
 - Check [**WCAG Guidelines**](https://www.w3.org/WAI/standards-guidelines/wcag/) to ensure accessibility compliance.
+- must ensure that component log matches component
 - Ensure alignment with [UI/UX documentation and guidelines](https://docs.google.com/document/d/1_J5CZ9UGx26D9iKI9BAy4rDhURhgG3cJYbnShedbc1g/edit?tab=t.0).
 - Provide constructive feedback during code reviews and request changes if necessary.
 - Pull the code and test functionality locally before approving.
