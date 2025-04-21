@@ -1,9 +1,11 @@
 import React from 'react';
 import ConcertCard from '../components/ConcertCard';
 import { BackButton, EnterButton, ShareButton, EventDescription, LotterySteps } from '../components/ButtonsAndDescriptions';
+import ActiveLotteryEntries from '../components/ActiveLotteryEntries';
 import HeroBanner from '../components/HeroBanner.tsx'
 import DetailedConcertCard from '../components/DetailedConcertCard'; 
 import { concertEvents } from '../data/concertData';
+import { currentUser } from '../data/userData';
 
 const LandingPage: React.FC = () => {
   const handleEnter = () => alert('Entered raffle!');
@@ -81,15 +83,16 @@ const LandingPage: React.FC = () => {
           ]}
         />
 
-        {/* Buttons */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', gap: '16px', marginTop: '32px' }}>
-          <BackButton onClick={handleBack} />
-          <EnterButton onClick={handleEnter} entryPrice={3} />
-          <ShareButton onClick={handleShare} />
-        </div>
+      {/* Buttons */}
+      <div style={{ display: 'flex', justifyContent: 'space-between', gap: '16px', marginTop: '32px' }}>
+        <BackButton onClick={handleBack} />
+        <EnterButton onClick={handleEnter} entryPrice={3} />
+        <ShareButton onClick={handleShare} />
       </div>
+      {/* Active Lottery Entries */}
+      <ActiveLotteryEntries user={currentUser} concertEvents={concertEvents} />
+    </div>
     </div>
   );
-  };
-  
+};
   export default LandingPage;
