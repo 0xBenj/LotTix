@@ -10,16 +10,16 @@ const LandingPage: React.FC = () => {
 
   const activeEntries: LotteryEntryProps[] = [
     {
-      artist: 'Billie Eilish',
+      artistName: 'Billie Eilish',
+      concertImageUrl: "https://i.ytimg.com/vi/d846WI05ySU/maxresdefault.jpg",
       tourName: 'Hit Me Hard and Soft',
-      tourDate: '2025-04-23',
-      venue: 'Avicii Arena',
+      concertDate: '2025-04-23',
+      venueName: 'Avicii Arena',
       city: 'Stockholm',
       state: 'Sweden',
-      entryDate: '2025-04-16',
-      currentOdds: '1:72',
-      resultsCountdown: '2 days 14 hours',
-      status: 'active',
+      lotteryDeadline: '2025-05-18',
+      userEntries: 5,
+      maxEntries: 300,
     },
   ];
   return (

@@ -1,19 +1,42 @@
 import React from 'react';
 import styled from 'styled-components';
 
-type LotteryStatus = 'active' | 'results soon';
+function calculateOdds(userEntries: number, maxEntries: number): string {
+  if (maxEntries === 0) return "N/A";
+  const odds = (userEntries / maxEntries) * 100;
+  return `${odds.toFixed(2)}%`;
+}
+
+function getTimeUntilDeadline(lotteryDeadline: string): string {
+  const now = new Date();
+  const deadline = new Date(lotteryDeadline);
+  const diffMs = deadline.getTime() - now.getTime();
+
+  if (diffMs <= 0) return "results available";
+
+  const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+  const diffHours = Math.floor((diffMs / (1000 * 60 * 60)) % 24);
+  const diffMinutes = Math.floor((diffMs / (1000 * 60)) % 60);
+
+  if (diffDays > 0) return ` ${diffDays} day${diffDays !== 1 ? "s" : ""}`;
+  if (diffHours > 0) return ` ${diffHours} hour${diffHours !== 1 ? "s" : ""}`;
+  return ` ${diffMinutes} minute${diffMinutes !== 1 ? "s" : ""}`;
+}
 
 interface LotteryEntryProps {
-  artist: string;
+  concertID: number;
+  concertName: string;
+  artistName: string;
   tourName: string;
-  tourDate: string;
-  venue: string;
+  concertDate: string;
+  venueName: string;
   city: string;
   state: string;
-  entryDate: string;
-  currentOdds: string;
-  resultsCountdown: string;
-  status: LotteryStatus;
+  country?: string;
+  maxEntries: number;
+  lotteryDeadline: string;
+  concertImageUrl: string;
+  userEntries: number;
 }
 
 interface Props {
@@ -21,34 +44,33 @@ interface Props {
 }
 
 const LotteryEntryCard: React.FC<LotteryEntryProps> = ({
-  artist,
+  artistName,
   tourName,
-  tourDate,
-  venue,
+  concertDate,
+  venueName,
   city,
   state,
-  entryDate,
-  currentOdds,
-  resultsCountdown,
-  status,
+  country,
+  maxEntries,
+  lotteryDeadline,
+  concertImageUrl,
+  userEntries,
 }) => {
+  const currentOdds= calculateOdds(userEntries, maxEntries);
+  const resultsCountdown= getTimeUntilDeadline(lotteryDeadline)
+
   return (
     <Card>
-      <Image src="https://i.ytimg.com/vi/d846WI05ySU/maxresdefault.jpg?sqp=-oaymwEmCIAKENAF8quKqQMa8AEB-AH-DoACuAiKAgwIABABGBMgWSh_MA8=&rs=AOn4CLBmNZpKqvRQRUB5phQfzmDNBU73gg" alt="Concert" />      
+      <Image src={concertImageUrl} alt={`${artistName} concert poster`}/>      
       <CardContent>
         <LeftSection>
-          <Title>{artist}</Title>
-          <Text>{tourName} • {new Date(tourDate).toLocaleDateString()}</Text>
-          <Text>{venue} • {city}, {state}</Text>
-          <StatusPill status={status}>{status === 'active' ? 'Active' : 'Results Soon'}</StatusPill>
+          <Title>{artistName}</Title>
+          <Text>{tourName} • {new Date(concertDate).toLocaleDateString()}</Text>
+          <Text>{venueName} • {city}, {state}, {country}</Text>
         </LeftSection>
         <RightSection>
-          <Meta>Entry Date: {new Date(entryDate).toLocaleDateString()}</Meta>
           <Meta>Current Odds: {currentOdds}</Meta>
-          <Meta>
-            Results In:{' '}
-            <span className={status === 'results soon' ? 'highlight' : ''}>{resultsCountdown}</span>
-          </Meta>
+          <Meta> Results in: {resultsCountdown}</Meta>
         </RightSection>
       </CardContent>
     </Card>
@@ -140,15 +162,4 @@ const Text = styled.p`
 
 const Meta = styled.p`
   margin: 0;
-`;
-
-const StatusPill = styled.span<{ status: LotteryStatus }>`
-  display: inline-block;
-  padding: 4px 12px;
-  border-radius: 999px;
-  font-size: 12px;
-  font-weight: 500;
-  margin-top: 10px;
-  background-color: ${({ status }) => (status === 'active' ? '#ede9fe' : '#fde2f3')};
-  color: ${({ status }) => (status === 'active' ? '#6b46c1' : '#e10098')};
 `;
