@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import type { ConcertEvent } from '../data/concertData.ts';
+import type { User } from '../data/userData.ts';
 
 function calculateOdds(userEntries: number, maxEntries: number): string {
   if (maxEntries === 0) return "N/A";
@@ -23,66 +25,48 @@ function getTimeUntilDeadline(lotteryDeadline: string): string {
   return ` ${diffMinutes} minute${diffMinutes !== 1 ? "s" : ""}`;
 }
 
-interface LotteryEntryProps {
-  concertID: number;
-  concertName: string;
-  artistName: string;
-  tourName: string;
-  concertDate: string;
-  venueName: string;
-  city: string;
-  state: string;
-  country?: string;
-  maxEntries: number;
-  lotteryDeadline: string;
-  concertImageUrl: string;
+interface LotteryEntryCardProps {
+  concert: ConcertEvent;
   userEntries: number;
 }
 
-interface Props {
-  entries: LotteryEntryProps[];
+interface ActiveLotteryEntriesProps {
+  user: User;
+  concertEvents: ConcertEvent[];
 }
 
-const LotteryEntryCard: React.FC<LotteryEntryProps> = ({
-  artistName,
-  tourName,
-  concertDate,
-  venueName,
-  city,
-  state,
-  country,
-  maxEntries,
-  lotteryDeadline,
-  concertImageUrl,
-  userEntries,
-}) => {
-  const currentOdds= calculateOdds(userEntries, maxEntries);
-  const resultsCountdown= getTimeUntilDeadline(lotteryDeadline)
-
+const LotteryEntryCard: React.FC<LotteryEntryCardProps> = ({ concert, userEntries }) => {
   return (
     <Card>
-      <Image src={concertImageUrl} alt={`${artistName} concert poster`}/>      
+      <Image src={concert.concertImageUrl} alt={`${concert.artistName} concert poster`} />
       <CardContent>
         <LeftSection>
-          <Title>{artistName}</Title>
-          <Text>{tourName} • {new Date(concertDate).toLocaleDateString()}</Text>
-          <Text>{venueName} • {city}, {state}, {country}</Text>
+          <Title>{concert.artistName}</Title>
+          <Text>{concert.tourName} • {new Date(concert.concertDate).toLocaleDateString()}</Text>
+          <Text>{concert.venueName} • {concert.city}, {concert.state}, {concert.country}</Text>
         </LeftSection>
         <RightSection>
-          <Meta>Current Odds: {currentOdds}</Meta>
-          <Meta> Results in: {resultsCountdown}</Meta>
+          <Meta>Current Odds: {calculateOdds(userEntries, concert.maxEntries)}</Meta>
+          <Meta>Results in: {getTimeUntilDeadline(concert.lotteryDeadline)}</Meta>
         </RightSection>
       </CardContent>
     </Card>
   );
 };
 
-const ActiveLotteryEntries: React.FC<Props> = ({ entries }) => {
+const ActiveLotteryEntries: React.FC<ActiveLotteryEntriesProps> = ({ user, concertEvents }) => {
+  const activeEntries = user.entries
+    .map(entry => {
+      const concert = concertEvents.find(c => c.concertID === entry.concertID);
+      return concert ? { concert, userEntries: entry.numberOfEntries } : null;
+    })
+    .filter(Boolean) as { concert: ConcertEvent; userEntries: number }[];
+
   return (
     <Section>
       <Heading>Your Active Lottery Entries</Heading>
-      {entries.map((entry, idx) => (
-        <LotteryEntryCard key={idx} {...entry} />
+      {activeEntries.map(({ concert, userEntries }) => (
+        <LotteryEntryCard key={concert.concertID} concert={concert} userEntries={userEntries} />
       ))}
     </Section>
   );

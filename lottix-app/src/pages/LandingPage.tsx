@@ -1,29 +1,16 @@
 import React from 'react';
 import ConcertCard from '../components/ConcertCard';
 import { BackButton, EnterButton, ShareButton, EventDescription, LotterySteps } from '../components/ButtonsAndDescriptions';
-import ActiveLotteryEntries, { LotteryEntryProps } from '../components/ActiveLotteryEntries';
+import ActiveLotteryEntries from '../components/ActiveLotteryEntries';
 import DetailedConcertCard from '../components/DetailedConcertCard'; 
 import { concertEvents } from '../data/concertData';
+import { currentUser } from '../data/userData';
 
 const LandingPage: React.FC = () => {
   const handleEnter = () => alert('Entered raffle!');
   const handleShare = () => alert('Shared!');
   const handleBack = () => alert('Going back!');
 
-  const activeEntries: LotteryEntryProps[] = [
-    {
-      artistName: 'Billie Eilish',
-      concertImageUrl: "https://i.ytimg.com/vi/d846WI05ySU/maxresdefault.jpg",
-      tourName: 'Hit Me Hard and Soft',
-      concertDate: '2025-04-23',
-      venueName: 'Avicii Arena',
-      city: 'Stockholm',
-      state: 'Sweden',
-      lotteryDeadline: '2025-05-18',
-      userEntries: 5,
-      maxEntries: 300,
-    },
-  ];
   return (
     <div style={{ padding: '20px' }}>
       {/* Card grid */}
@@ -100,7 +87,7 @@ const LandingPage: React.FC = () => {
         <ShareButton onClick={handleShare} />
       </div>
       {/* Active Lottery Entries */}
-      <ActiveLotteryEntries entries={activeEntries} />
+      <ActiveLotteryEntries user={currentUser} concertEvents={concertEvents} />
     </div>
   );
 };
