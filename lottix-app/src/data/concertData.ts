@@ -16,6 +16,7 @@ export interface ConcertEvent {
   country: string;
   
   // Ticket & Lottery Information
+  ticketPrice: number;
   entryPrice: number | 'Free';
   maxEntries: number;
   entriesSold: number;
@@ -37,6 +38,7 @@ export const concertEvents: ConcertEvent[] = [
     city: "Chicago",
     state: "IL",
     country: "USA",
+    ticketPrice: 150,
     entryPrice: 3,
     maxEntries: 500,
     entriesSold: 285,
@@ -56,6 +58,7 @@ export const concertEvents: ConcertEvent[] = [
     city: "Miami",
     state: "FL",
     country: "USA",
+    ticketPrice: 190,
     entryPrice: 3,
     maxEntries: 600,
     entriesSold: 292,
@@ -75,6 +78,7 @@ export const concertEvents: ConcertEvent[] = [
     city: "Los Angeles",
     state: "CA",
     country: "USA",
+    ticketPrice: 95,
     entryPrice: 'Free',
     maxEntries: 400,
     entriesSold: 220,
@@ -94,6 +98,7 @@ export const concertEvents: ConcertEvent[] = [
     city: "New York",
     state: "NY",
     country: "USA",
+    ticketPrice: 250,
     entryPrice: 3,
     maxEntries: 800,
     entriesSold: 705,
@@ -113,6 +118,7 @@ export const concertEvents: ConcertEvent[] = [
     city: "Boston",
     state: "MA",
     country: "USA",
+    ticketPrice: 150,
     entryPrice: 3,
     maxEntries: 500,
     entriesSold: 372,
@@ -132,6 +138,7 @@ export const concertEvents: ConcertEvent[] = [
     city: "San Francisco",
     state: "CA",
     country: "USA",
+    ticketPrice: 305,
     entryPrice: 3,
     maxEntries: 550,
     entriesSold: 375,
