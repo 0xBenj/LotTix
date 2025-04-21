@@ -4,11 +4,11 @@ import type { ConcertEvent } from '../data/concertData.ts'
 
 // Example usage
 /*        
-<ConcertCardEventPage c={concertEvents[0]} />
+<DetailedConcertCard c={concertEvents[0]} />
 */
-interface ConcertCardEventPageProps { c: ConcertEvent; }
+interface DetailedConcertCardProps { c: ConcertEvent; }
 
-const ConcertCardEventPage: React.FC<ConcertCardEventPageProps> = ({ c }) => {
+const DetailedConcertCard: React.FC<DetailedConcertCardProps> = ({ c }) => {
   const location = c.state ? `${c.city}, ${c.state}` : `${c.city}, ${c.country}`;
   const formattedEntryPrice = typeof c.entryPrice === 'number' ? `$${c.entryPrice}` : c.entryPrice;
   const spotsRemaining = c.maxEntries - c.entriesSold + " of " + c.maxEntries;
@@ -23,7 +23,7 @@ const ConcertCardEventPage: React.FC<ConcertCardEventPageProps> = ({ c }) => {
       <ContentSection>
         <HeaderSection>
           <ArtistName>{c.artistName}</ArtistName>
-          <TourName>{c.concertName}</TourName>
+          <TourName>{c.tourName}</TourName>
           <HotBadge>HOT!</HotBadge>
         </HeaderSection>
         
@@ -215,4 +215,4 @@ const LotteryDetailsCard = styled.div`
   display: flex;
 `
 
-export default ConcertCardEventPage;
+export default DetailedConcertCard;
