@@ -61,7 +61,6 @@ const LandingPage: React.FC = () => {
             onEnterClick={() => alert('Lottery entered!')}
           />
         </div>
-        </div>
 
         {/* Event Description */}
         <EventDescription
