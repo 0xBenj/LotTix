@@ -6,8 +6,8 @@ interface HeroBannerProps {}
 const HeroBanner: React.FC<HeroBannerProps> = () => {
   return (
     <HeroBannerContainer>
-      <MainHeading>Win Concert Tickets</MainHeading>
-      <SubHeading>For Just $3</SubHeading>
+      <Heading>Win Concert Tickets</Heading>
+      <Heading>For Just $3</Heading>
       <Description>Enter our lottery for a chance to see your favorite artists live!</Description>
       <SearchButton>Search Events</SearchButton>
     </HeroBannerContainer>
@@ -27,16 +27,10 @@ const HeroBannerContainer = styled.div`
   color: white;
 `;
 
-const MainHeading = styled.h2`
+const Heading = styled.h2`
   font-size: 2.5rem;
   font-weight: bold;
   margin-bottom: 0.5rem;
-`;
-
-const SubHeading = styled.h3`
-  font-size: 2rem;
-  font-weight: bold;
-  margin-bottom: 1.5rem;
 `;
 
 const Description = styled.p`
