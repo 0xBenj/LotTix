@@ -103,7 +103,7 @@ export const concertEvents: ConcertEvent[] = [
     maxEntries: 800,
     entriesSold: 705,
     lotteryDeadline: "2025-08-01T23:59:59Z",
-    lotteryWinner: "Pending"
+    lotteryWinner: "Alex Johnson"
   },
   {
     concertID: 5,
