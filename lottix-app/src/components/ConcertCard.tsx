@@ -1,60 +1,34 @@
 import React from 'react';
 import styled from 'styled-components';
+import { ConcertEvent } from '../data/concertData.ts';
 
 type ConcertCardProps = {
-  id: number;
-  name: string;
-  artist: string;
-  date: string; // ISO date string
-  time: string;
-  genre?: string;
-  venue: string;
-  city: string;
-  state?: string;
-  country: string;
-  capacity?: number;
-  ticketPrice: number;
-  lotteryEntryPrice: number | 'Free';
-  maxEntriesPerUser?: number;
-  lotteryDeadline: string; // ISO date string
-  winnersAnnounced?: string; // ISO date string
-  imageUrl: string;
-  description?: string;
+concert: ConcertEvent;
   onEnterClick: () => void;
 };
 
 const ConcertCard: React.FC<ConcertCardProps> = ({
-  name,
-  artist,
-  date,
-  time,
-  venue,
-  city,
-  state,
-  country,
-  ticketPrice,
-  lotteryEntryPrice,
-  imageUrl,
+  concert,
   onEnterClick,
 }) => {
   return (
     <StyledWrapper>
       <div className="card">
-        <img src={imageUrl} alt={`${name} poster`} className="card-image" />
+        <img src={concert.concertImageUrl} alt={`${concert.concertName} poster`} className="card-image" />
         <div className="card-details">
-          <p className="text-title">{name}</p>
+          <p className="text-title">{concert.concertName}</p>
           <p className="text-body">
-            {artist} • {venue}, {city}{state ? `, ${state}` : ''}, {country}
+            {concert.artistName} • {concert.venueName}, {concert.city}{concert.state ? `, ${concert.state}` : ''}, {concert.country}
           </p>
           <p className="text-body">
-            {new Date(date).toLocaleDateString()} at {time}
+            {new Date(concert.concertDate).toLocaleDateString()} at {concert.concertTime}
           </p>
           <p className="text-body">
-            Ticket: ${ticketPrice} | Lottery: {lotteryEntryPrice === 'Free' ? 'Free' : `$${lotteryEntryPrice}`}
+            Ticket: ${concert.ticketPrice} | Lottery: {concert.entryPrice === 'Free' ? 'Free' : `$${concert.entryPrice}`}
           </p>
         </div>
         <button className="card-button" onClick={onEnterClick}>
-          {lotteryEntryPrice === 'Free' ? 'Enter for Free' : `Enter for $${lotteryEntryPrice}`}
+          {concert.entryPrice === 'Free' ? 'Enter for Free' : `Enter for $${concert.entryPrice}`}
         </button>
       </div>
     </StyledWrapper>
