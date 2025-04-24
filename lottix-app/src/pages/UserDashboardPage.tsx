@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { DashboardNav, RecentWinners, WinnerEntryProps } from '../components/DashboardAndRecentWinners';
-// import ActiveLotteryEntries from '../components/ActiveLotteryEntries'; // leave this commented for now
+import { concertEvents } from '../data/concertData'; // make sure this is imported
 
 const UserDashboardPage: React.FC = () => {
   const [activeTab, setActiveTab] = useState('Active Entries');
@@ -9,26 +9,14 @@ const UserDashboardPage: React.FC = () => {
     setActiveTab(tab);
   };
 
-  const winners: WinnerEntryProps[] = [
-    {
-      artist: 'Taylor Swift',
-      city: 'NYC',
-      winnerName: 'Alex W.',
-      winnerAnnounced: new Date(Date.now() - 2 * 3600 * 1000).toISOString(),
-    },
-    {
-      artist: 'Bad Bunny',
-      city: 'Miami',
-      winnerName: 'Maria L.',
-      winnerAnnounced: new Date(Date.now() - 5 * 3600 * 1000).toISOString(),
-    },
-    {
-      artist: 'BTS',
-      city: 'LA',
-      winnerName: 'David K.',
-      winnerAnnounced: new Date(Date.now() - 8 * 3600 * 1000).toISOString(),
-    },
-  ];
+  const winners: WinnerEntryProps[] = concertEvents
+    .filter(event => event.lotteryWinner !== 'Pending')
+    .map(event => ({
+      artist: event.artistName,
+      city: event.city,
+      winnerName: event.lotteryWinner,
+      winnerAnnounced: event.lotteryDeadline,
+    }));
 
   return (
     <div style={{ padding: '32px', maxWidth: '1200px', margin: '0 auto' }}>
