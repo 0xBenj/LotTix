@@ -16,7 +16,10 @@ const UserDashboardPage: React.FC = () => {
       city: event.city,
       winnerName: event.lotteryWinner,
       winnerAnnounced: event.lotteryDeadline,
-    }));
+    }))
+    .sort((a, b) => new Date(b.winnerAnnounced).getTime() - new Date(a.winnerAnnounced).getTime()) // sort descending (most recent first)
+    .slice(0, 3); // pick only the top 3
+    
 
   return (
     <div style={{ padding: '32px', maxWidth: '1200px', margin: '0 auto' }}>
