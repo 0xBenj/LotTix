@@ -1,21 +1,25 @@
 import React from "react";
 import styled from 'styled-components';
+import { ConcertEvent, concertEvents } from "../data/concertData";
 
-interface WinnerModalProps {}
+interface WinnerModalProps {
+  c: ConcertEvent;
+}
 
-const ResultsPage: React.FC<WinnerModalProps> = () => {
+const testEvent = concertEvents[3]
+
+const ResultsPage: React.FC<WinnerModalProps> = ( {c = testEvent } ) => {
   return (
     <ModalContainer>
       <ConfettiBanner>
         <ConfettiCircle>
-          {/* Party popper icon would go here */}
           <ConfetttiIcon />
         </ConfettiCircle>
       </ConfettiBanner>
       <Title>Congratulations!</Title>
       <Subtitle>You Won The Lottery!</Subtitle>
       <ConcertImage />
-      <ConcertTitle>Adele • "30" World Tour</ConcertTitle>
+      <ConcertTitle>{c.artistName} • {c.concertName}</ConcertTitle>
     </ModalContainer>
   );
 };
