@@ -1,0 +1,12 @@
+{
+  "mockUsers": [
+    {
+      "userId": "user1",
+      "userName": "John Doe",
+      "userEmail": "john@example.com",
+      "userPassword": "securepassword123",
+      "entries": [],
+      "wonLotteries": []
+    }
+  ]
+}
