@@ -72,6 +72,13 @@ async function handleProxy(
 }
 
 // Routes
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*"); // or use http://localhost:5173 if you want to restrict
+  res.setHeader("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  next();
+});
+
 app.post("/enter-concert", (req, res) => handleProxy("concert-service", req, res));
 app.post("/enter-user", (req, res) => handleProxy("users-service", req, res));
 app.get("/user/:userId", (req, res) => handleProxy("user-fetch-service", req, res));
