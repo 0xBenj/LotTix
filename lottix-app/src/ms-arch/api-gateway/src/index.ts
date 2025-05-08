@@ -72,6 +72,7 @@ async function handleProxy(
 
 // Routes
 app.post("/enter-concert", (req, res) => handleProxy("concert-service", req, res));
+app.post("/enter-user", (req, res) => handleProxy("users-service", req, res));
 
 app.listen(PORT, () => {
   log.info(`API Gateway listening on port ${PORT}`);
