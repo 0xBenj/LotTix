@@ -49,12 +49,15 @@ async function lookupService(name: string): Promise<string | null> {
 async function handleProxy(
   serviceName: string,
   req: express.Request,
-  res: express.Response,
+  res: express.Response
 ) {
-  const url = await lookupService(serviceName);
-  if (!url) return res.status(502).send(`Could not resolve ${serviceName}`);
+  const serviceUrl = await lookupService(serviceName);
+  if (!serviceUrl) return res.status(502).send(`Could not resolve ${serviceName}`);
+
+  const targetUrl = `${serviceUrl}${req.path}`;  // 🔥 preserves /enter-concert
+
   try {
-    const response = await fetch(url, {
+    const response = await fetch(targetUrl, {
       method: req.method,
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(req.body),
