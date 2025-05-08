@@ -54,18 +54,19 @@ async function handleProxy(
   const serviceUrl = await lookupService(serviceName);
   if (!serviceUrl) return res.status(502).send(`Could not resolve ${serviceName}`);
 
-  const targetUrl = `${serviceUrl}${req.path}`;  // 🔥 preserves /enter-concert
+  const targetUrl = `${serviceUrl}${req.originalUrl}`;  // preserves full path including /user/:userId
 
   try {
     const response = await fetch(targetUrl, {
       method: req.method,
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(req.body),
+      ...(req.method !== "GET" && { body: JSON.stringify(req.body) }),  // body only for non-GET
     });
+
     const result = await response.json();
     res.status(response.status).json(result);
   } catch (err) {
-    log.error(`Error forwarding to ${serviceName}: ${(err as Error).message}`);
+    console.error(`❌ Error forwarding to ${serviceName}:`, err);
     res.status(500).send(`Error communicating with ${serviceName}`);
   }
 }
@@ -73,6 +74,8 @@ async function handleProxy(
 // Routes
 app.post("/enter-concert", (req, res) => handleProxy("concert-service", req, res));
 app.post("/enter-user", (req, res) => handleProxy("users-service", req, res));
+app.get("/user/:userId", (req, res) => handleProxy("user-fetch-service", req, res));
+app.get("/concerts", (req, res) => handleProxy("concert-fetch-service", req, res));
 
 app.listen(PORT, () => {
   log.info(`API Gateway listening on port ${PORT}`);

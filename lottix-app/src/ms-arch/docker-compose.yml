@@ -42,6 +42,29 @@ services:
       - skynet
     volumes:
       - ./data:/app/data
+
+  user-fetch-service:
+    build:
+      context: ./user-fetch-service
+    container_name: user-fetch-service
+    depends_on:
+      - registry
+    networks:
+      - skynet
+    volumes:
+      - ./data:/app/data  
+
+  concert-fetch-service:
+    build:
+      context: ./concert-fetch-service
+    container_name: concert-fetch-service
+    depends_on:
+      - registry
+    networks:
+      - skynet
+    volumes:
+      - ./data:/app/data  
+
   api-gateway:
     build:
       context: ./api-gateway
