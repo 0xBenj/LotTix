@@ -6,6 +6,7 @@ import UserDashboardPage from "./pages/UserDashboardPage";
 import SignInPage from "./pages/SignInPage";
 import HowItWorksPage from "./pages/HowItWorksPage";
 import NavBar from "./components/NavBar";
+import ResultsPage from './pages/ResultsPage.tsx'
 import './App.css'
 import { Link } from "react-router-dom";
 
@@ -49,6 +50,7 @@ function App() {
         <Route path="/user-dashboard" element={<UserDashboardPage />} />
         <Route path="/sign-in" element={<SignInPage />} />
         <Route path="/how-it-works" element={<HowItWorksPage />} />
+        <Route path="/results" element={<ResultsPage />} />
       </Routes>
       <div>
       <h1>Welcome to Lottix!</h1>
